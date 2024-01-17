@@ -41,6 +41,10 @@ jobs:
           cd hello
           go build -o hello-password -v
           ls -ltr
+          env GOOS=windows GOARCH=x64 go build -o hello-password -v
+          ls -ltr
+          env GOOS=darwin GOARCH=x64 go build -o hello-password -v
+          ls -ltr
      
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.0.0
