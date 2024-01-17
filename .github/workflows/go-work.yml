@@ -42,14 +42,10 @@ jobs:
           go build -o hello-password -v
           ls -ltr
           mv hello-password hello-password-linux
-          echo next windows
-          env GOOS=windows go build -o hello-password -v
-          ls -ltr
-          mv hello-password hello-password-windows
           echo next windows amd64
           env GOOS=windows GOARCH=amd64 go build -o hello-password -v
           ls -ltr
-          mv hello-password hello-password-windows-amd64
+          mv hello-password hello-password-windows-amd64.exe
           echo next darwin amd64
           env GOOS=darwin GOARCH=amd64 go build -o hello-password -v
           ls -ltr
