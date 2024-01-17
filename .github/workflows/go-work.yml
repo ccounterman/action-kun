@@ -41,12 +41,19 @@ jobs:
           cd hello
           go build -o hello-password -v
           ls -ltr
-          env GOOS=windows  go build -o hello-password -v
+          mv hello-password hello-password-linux
+          echo next windows
+          env GOOS=windows go build -o hello-password -v
           ls -ltr
+          mv hello-password hello-password-windows
+          echo next windows amd64
           env GOOS=windows GOARCH=amd64 go build -o hello-password -v
           ls -ltr
+          mv hello-password hello-password-windows-amd64
+          echo next darwin amd64
           env GOOS=darwin GOARCH=amd64 go build -o hello-password -v
           ls -ltr
+          cp hello-password hello-password-darwin-amd64
      
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.0.0
@@ -66,7 +73,7 @@ jobs:
           # Artifact name
           name: hello-password # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
-          path: ./hello/hello-password
+          path: ./hello/hello-password*
           # The desired behavior if no files are found using the provided path.
           if-no-files-found: error
           retention-days: 30
