@@ -5,7 +5,7 @@ name: CI-GO
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "branch-1-0-x", "branch-1-1-x" ]
+    branches: [ "main", "branch-1-0-x", "branch-1-1-x" ]
   pull_request:
     branches: [ "branch-1-0-x" ]
 

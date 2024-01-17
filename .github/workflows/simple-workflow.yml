@@ -8,7 +8,7 @@ env:
 on:
   # Triggers the workflow on push or pull request
   push:
-    branches: [ "main", "branch-1-0-x", "branch-1-1-x" ]
+    branches: ["branch-1-0-x", "branch-1-1-x" ]
     # Sequence of patterns matched against refs/tags
     tags:        
       - 1.0.*
