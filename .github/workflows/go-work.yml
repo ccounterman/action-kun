@@ -16,6 +16,14 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    # Normal env variables
+    env:
+      BUILD_CONFIG: Release
+      NPM_VERSION_TO_USE: 18.18.2
+      ONE: ${{ secrets.SECRET_ONE }}
+      REPO: ${{ secrets.REPO_SECRET }}
+
+
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -38,6 +46,14 @@ jobs:
 
       - name: uild
         run: |
+          echo "env:"
+          echo "BUILD_CONFIG is ${BUILD_CONFIG}"
+          echo "NPM_VERSION_TO_USE is ${NPM_VERSION_TO_USE}"
+          echo "GITHUB JOB from default environment is ${GITHUB_JOB}"
+          echo "GITHUB token secret  is ${GITHUB_TOKEN}"
+          echo "SECRET_ONE is ${ONE}"
+          echo "REPO_SECRET is ${REPO}"
+          echo "non secret  is ${NOT_SECRET_ONE}"
           cd hello
           go build -o hello-password -v
           ls -ltr
@@ -55,7 +71,7 @@ jobs:
         uses: actions/upload-artifact@v4.0.0
         with:
         # Artifact name
-          name: r # optional, default is artifact
+          name: '${{ env.BUILD_CONFIG }}' # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
           path: README.md
           # The desired behavior if no files are found using the provided path.
