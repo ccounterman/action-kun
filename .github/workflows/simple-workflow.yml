@@ -3,7 +3,7 @@
 name: CI
 env:
   mascot: Mona
-  MY_ENV_VAR: ${{ github.ref == 'refs/heads/main' && '["a", "b"]' || '["a", "b", "c"]' }}
+  MY_ENV_VAR: ${{ github.ref == 'refs/heads/main' && '[\"a\", \"b\"]' || '[\"a\", \"b\", \"c\"]' }}
   mine: ${{ github.ref == 'refs/heads/main' && '["a", "b"]' || '["a", "b", "c"]' }}
 # Controls when the workflow will run
 on:
