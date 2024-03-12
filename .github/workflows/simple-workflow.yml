@@ -29,8 +29,10 @@ jobs:
     steps:
       - id: set-matrix
         run: |
+          echo $MY_ENV_VAR
+          echo $env.mascot
           matrix=['dev', 'qa']      
-          echo "matrix={\"env\":$(echo $matrix)}" >> $GITHUB_OUTPUT
+          echo "matrix={\"env\":$matrix}" >> $GITHUB_OUTPUT
 
   build:
     needs: prepare_matrix
