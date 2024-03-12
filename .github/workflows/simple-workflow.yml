@@ -19,7 +19,7 @@ on:
       - 5.*.*
       - 6.*.*
       - 7.*.*
-      - 8*.*.*
+      - v*.*.*
 #      - 1.0.*
 #      - 1.1.*
   pull_request:
@@ -50,6 +50,7 @@ jobs:
           echo "matrix={\"env\": env.MY_ENV_VAR}"
           echo "matrix={\"env\": ${{ env.MY_ENV_VAR }}}"
           echo "matrix={\"env\": ${{ env.mine }}}"
+          echo "manual input: ${{ github.event.inputs.environment }} ${{ github.event.inputs.force}}"
           echo "matrix={\"env\": ${{ env.mine }}}" >> $GITHUB_OUTPUT
           # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
 
