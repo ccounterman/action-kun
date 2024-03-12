@@ -3,8 +3,8 @@
 name: CI
 env:
   mascot: Mona
-  MY_ENV_VAR: ${{ github.ref == 'refs/heads/main' && '[\"a\", \"b\"]' || '[\"a\", \"b\", \"c\"]' }}
-  mine: ${{ github.ref == 'refs/heads/main' && '["a", "b"]' || '["a", "b", "c"]' }}
+  MY_ENV_VAR: ${{ contains(github.ref_name, 'alpha')  && '[\"a\", \"b\"]' || '[\"a\", \"b\", \"c\"]' }}
+  mine: ${{ contains(github.ref_name, 'alpha')  && '[\"dev\", \"qa\"]' || (contains(github.ref_name, 'beta')  &&  '[\"dev\", \"qa\", \"uat\"]' || '[\"dev\", \"qa\", \"uat\", \"prod\", \"demo\"]' ) }}
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request
@@ -32,6 +32,7 @@ jobs:
         run: |
           echo "matrix={\"env\": env.MY_ENV_VAR}"
           echo "matrix={\"env\": ${{ env.MY_ENV_VAR }}}"
+          echo "matrix={\"env\": ${{ env.mine }}}"
           echo "matrix={\"env\": ${{ env.MY_ENV_VAR }}}" >> $GITHUB_OUTPUT
           # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
 
