@@ -3,7 +3,7 @@
 name: CI
 env:
   mascot: Mona
-
+  MY_ENV_VAR: ${{ github.ref == 'refs/heads/main' && 'value_for_main_branch' || 'value_for_other_branches' }}
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request
@@ -22,14 +22,21 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    strategy:
-      matrix:
-        env: ${{contains(github.ref_name, "alpha")}} ? ['dev', 'qa' ]
-        : ${{contains(github.ref_name, "beta")}} ? ['dev', 'qa', "uat" ]
-        :  ['dev', 'qa', 'uat', 'prod', 'demo']
+  prepare_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          matrix=['dev', 'qa']      
+          echo "matrix={\"env\":$(echo $matrix)}" >> $GITHUB_OUTPUT
 
+  build:
+    needs: prepare_matrix
+    strategy:
+      matrix: ${{fromJson(needs.prepare_matrix.outputs.matrix)}}
+        # env: ['a', 'b']
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -49,6 +56,8 @@ jobs:
           echo test, and deploy your project.
           cat README.md
           echo 'Hi ${{ env.mascot }}' 
+          echo 'MY_ENV_VAR ${{ env.MY_ENV_VAR }}' 
+          echo 'matrx ${{ needs.prepare_matrix.outputs.matrix }}' 
           echo 'sha ${{ github.sha }}'
           echo 'ref ${{ github.ref }}'
           echo 'ref_name ${{ github.ref_name }}'
