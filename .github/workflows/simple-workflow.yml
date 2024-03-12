@@ -33,7 +33,7 @@ jobs:
           echo "matrix={\"env\": env.MY_ENV_VAR}"
           echo "matrix={\"env\": ${{ env.MY_ENV_VAR }}}"
           echo "matrix={\"env\": ${{ env.mine }}}"
-          echo "matrix={\"env\": ${{ env.MY_ENV_VAR }}}" >> $GITHUB_OUTPUT
+          echo "matrix={\"env\": ${{ env.mine }}}" >> $GITHUB_OUTPUT
           # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
 
   build:
