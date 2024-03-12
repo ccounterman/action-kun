@@ -30,9 +30,9 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "matrix={\"env\":$env.MY_ENV_VAR}"
-          # echo "matrix={\"env\":$env.MY_ENV_VAR}" >> $GITHUB_OUTPUT
-          echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
+          echo "matrix={\"env\": env.MY_ENV_VAR}"
+          echo "matrix={\"env\": env.MY_ENV_VAR}" >> $GITHUB_OUTPUT
+          # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
 
   build:
     needs: prepare_matrix
