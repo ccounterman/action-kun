@@ -11,15 +11,25 @@ on:
   push:
     # branches: ["branch-1-0-x", "branch-1-1-x" ]
     # Sequence of patterns matched against refs/tags
-    tags:        
-      - 1.0.*
-      - 1.1.*
+    tags:
+      - *.*.*
+#      - 1.0.*
+#      - 1.1.*
   pull_request:
     branches: [ "main" ]
 
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Build for environment'
+        required: true
+        default: 'dev'
+      force:
+        description: 'yes/no demo'
+        required: false
+        default: 'yes'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -52,7 +62,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-        
+
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
