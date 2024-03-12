@@ -22,23 +22,11 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  prepare_matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - id: set-matrix
-        run: |
-          echo $MY_ENV_VAR
-          echo $env.mascot
-          matrix=['dev', 'qa']      
-          echo "matrix={\"env\":$matrix}" >> $GITHUB_OUTPUT
-
   build:
-    needs: prepare_matrix
     strategy:
-      matrix: ${{fromJson(needs.prepare_matrix.outputs.matrix)}}
-        # env: ['a', 'b']
+      matrix:
+        env: ${{contains(github.ref_name, "alpha") && ['dev', 'qa' ] || ['dev', 'qa', 'uat' ]}}
+
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -59,7 +47,6 @@ jobs:
           cat README.md
           echo 'Hi ${{ env.mascot }}' 
           echo 'MY_ENV_VAR ${{ env.MY_ENV_VAR }}' 
-          echo 'matrx ${{ needs.prepare_matrix.outputs.matrix }}' 
           echo 'sha ${{ github.sha }}'
           echo 'ref ${{ github.ref }}'
           echo 'ref_name ${{ github.ref_name }}'
