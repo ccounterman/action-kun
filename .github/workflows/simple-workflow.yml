@@ -23,10 +23,19 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  prepare_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          echo "matrix={\"env\":$env.MY_ENV_VAR}" >> $GITHUB_OUTPUT
+
   build:
+    needs: prepare_matrix
     strategy:
-      matrix:
-        env: ${{fromJson('["a", "b"]')}}
+      matrix: ${{ fromJSON(needs.prepare_matrix.outputs.matrix) }}
 
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -45,10 +54,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo 'mine ${{ env.mine }}' 
-          echo ${{fromJson( env.mine )}}
           echo '${{fromJson( env.mine )}}'
-          echo ${{fromJson( env.mine )}}
           cat README.md
           echo 'Hi ${{ env.mascot }}' 
           echo 'MY_ENV_VAR ${{ env.MY_ENV_VAR }}' 
