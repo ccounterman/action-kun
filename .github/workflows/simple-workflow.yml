@@ -25,8 +25,7 @@ jobs:
   build:
     strategy:
       matrix:
-        env: ${{contains(github.ref_name, "alpha") && ['dev', 'qa' ] || ['dev', 'qa', 'uat' ]}}
-
+        env: ${{contains(github.ref_name, 'alpha') && '[dev, qa ]' || '[dev, qa, uat ]'}}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
