@@ -45,7 +45,10 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          echo 'mine ${{ env.mine }}' 
+          echo ${{fromJson( env.mine )}}
           echo '${{fromJson( env.mine )}}'
+          echo ${{fromJson( env.mine )}}
           cat README.md
           echo 'Hi ${{ env.mascot }}' 
           echo 'MY_ENV_VAR ${{ env.MY_ENV_VAR }}' 
