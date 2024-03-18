@@ -92,7 +92,8 @@ jobs:
       - name: set more vars
         run: |
           echo "action_state=yellow" >> "$GITHUB_ENV"
-          echo "action_state2=green" >> "$GITHUB_ENV"          
+          echo "action_state2=green" >> "$GITHUB_ENV"   
+          < envvars >> "$GITHUB_ENV" 
       # Runs a set of commands using the runners shell
       - name: Run another multi-line script
         run: |
@@ -102,6 +103,10 @@ jobs:
           echo 'MY_ENV_VAR2 ${{ env.MY_ENV_VAR2 }}' 
           echo 'MY_ENV_VAR3 ${{ env.MY_ENV_VAR3 }}' 
           echo 'env ${{ matrix.env }}'
-          echo 'env ${{ env.action_state }}'
-          echo 'env ${{ env.action_state2 }}'
+          echo 'action_state ${{ env.action_state }}'
+          echo 'action_state2 ${{ env.action_state2 }}'
+          echo 'MY_FILE_VAR ${{ env.MY_FILE_VAR }}'
+          echo 'MY_FILE_VAR ${{ env.MY_FILE_VAR2 }}'
+          echo 'MY_FILE_VAR3 ${{ env.MY_FILE_VAR3 }}'
+          echo 'E ${{ env.E }}'
     
