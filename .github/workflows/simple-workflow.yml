@@ -105,8 +105,10 @@ jobs:
           echo 'env ${{ matrix.env }}'
           echo 'action_state ${{ env.action_state }}'
           echo 'action_state2 ${{ env.action_state2 }}'
-          echo 'MY_FILE_VAR ${{ env.MY_FILE_VAR }}'
-          echo 'MY_FILE_VAR ${{ env.MY_FILE_VAR2 }}'
+          echo 'MY_FILE_VAR1 ${{ env.MY_FILE_VAR1 }}'
+          echo 'MY_FILE_VAR2 ${{ env.MY_FILE_VAR2 }}'
           echo 'MY_FILE_VAR3 ${{ env.MY_FILE_VAR3 }}'
           echo 'E ${{ env.E }}'
+          ./dump.sh
+          
     
