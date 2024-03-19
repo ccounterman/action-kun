@@ -94,6 +94,9 @@ jobs:
           echo "action_state=yellow" >> "$GITHUB_ENV"
           echo "action_state2=green" >> "$GITHUB_ENV"   
           cat envvars >> "$GITHUB_ENV" 
+          git --version
+          git log -n 3 --stat
+          git log -n 3 --stat README.md
           git log -n 1 README.md 
           git log -n 1 HEAD README.md 
           git rev-list -n 1 HEAD 
