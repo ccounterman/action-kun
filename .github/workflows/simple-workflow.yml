@@ -94,11 +94,13 @@ jobs:
           echo "action_state=yellow" >> "$GITHUB_ENV"
           echo "action_state2=green" >> "$GITHUB_ENV"   
           cat envvars >> "$GITHUB_ENV" 
+          echo SOURCE_REV=`git rev-list -n 1 HEAD -- hello` >> "$GITHUB_ENV" 
       # Runs a set of commands using the runners shell
       - name: Run another multi-line script
         run: |
           echo Now we have
           echo 'Hi ${{ env.mascot }}' 
+          echo 'rev ${{ env.SOURCE_REV }}'
           echo 'MY_ENV_VAR ${{ env.MY_ENV_VAR }}' 
           echo 'MY_ENV_VAR2 ${{ env.MY_ENV_VAR2 }}' 
           echo 'MY_ENV_VAR3 ${{ env.MY_ENV_VAR3 }}' 
@@ -110,5 +112,5 @@ jobs:
           echo 'MY_FILE_VAR3 ${{ env.MY_FILE_VAR3 }}'
           echo 'E ${{ env.E }}'
           ./dump.sh
-          
+
     
