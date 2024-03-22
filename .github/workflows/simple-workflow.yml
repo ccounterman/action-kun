@@ -108,8 +108,8 @@ jobs:
           git rev-list -n 1 HEAD -- hello 
           git rev-list -n 1 HEAD -- .
           git rev-list -n 1 HEAD -- ./hello
-          echo SOURCE_REV=`git rev-list -n 1 HEAD -- hello` 
-          echo SOURCE_REV=`git rev-list -n 1 HEAD -- hello` >> "$GITHUB_ENV" 
+          echo SOURCE_REV=$(git rev-list -n 1 HEAD -- hello)
+          echo SOURCE_REV=$(git rev-list -n 1 HEAD -- hello) >> "$GITHUB_ENV"
       # Runs a set of commands using the runners shell
       - name: Run another multi-line script
         run: |
