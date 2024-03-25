@@ -55,6 +55,10 @@ jobs:
           echo "manual input: ${{ github.event.inputs.environment }} ${{ github.event.inputs.force}}"
           echo "matrix={\"env\": ${{ env.mine }}}" >> $GITHUB_OUTPUT
           # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
+          echo "action_state3=blue" >> "$GITHUB_ENV"
+          echo "action_state4=orange" >> "$GITHUB_ENV"   
+          cat envvars >> "$GITHUB_ENV" 
+ 
 
   build:
     needs: prepare_matrix
@@ -96,7 +100,7 @@ jobs:
         run: |
           echo "action_state=yellow" >> "$GITHUB_ENV"
           echo "action_state2=green" >> "$GITHUB_ENV"   
-          cat envvars >> "$GITHUB_ENV" 
+          # cat envvars >> "$GITHUB_ENV" 
           git --version
           git log -n 3 --stat
           git log -n 3 --stat README.md
@@ -122,6 +126,8 @@ jobs:
           echo 'env ${{ matrix.env }}'
           echo 'action_state ${{ env.action_state }}'
           echo 'action_state2 ${{ env.action_state2 }}'
+          echo 'action_state3 ${{ env.action_state3 }}'
+          echo 'action_state4 ${{ env.action_state4 }}'
           echo 'MY_FILE_VAR1 ${{ env.MY_FILE_VAR1 }}'
           echo 'MY_FILE_VAR2 ${{ env.MY_FILE_VAR2 }}'
           echo 'MY_FILE_VAR3 ${{ env.MY_FILE_VAR3 }}'
