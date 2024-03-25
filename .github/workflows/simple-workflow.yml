@@ -57,7 +57,6 @@ jobs:
           # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
           echo "action_state3=blue" >> "$GITHUB_ENV"
           echo "action_state4=orange" >> "$GITHUB_ENV"   
-          cat envvars >> "$GITHUB_ENV" 
  
 
   build:
@@ -134,4 +133,26 @@ jobs:
           echo 'E ${{ env.E }}'
           ./dump.sh
 
-    
+  second-build:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run another multi-line script
+      run: |
+        echo Now we have
+        echo 'Hi ${{ env.mascot }}' 
+        echo 'rev ${{ env.SOURCE_REV }}'
+        echo 'MY_ENV_VAR ${{ env.MY_ENV_VAR }}' 
+        echo 'MY_ENV_VAR2 ${{ env.MY_ENV_VAR2 }}' 
+        echo 'MY_ENV_VAR3 ${{ env.MY_ENV_VAR3 }}' 
+        echo 'env ${{ matrix.env }}'
+        echo 'action_state ${{ env.action_state }}'
+        echo 'action_state2 ${{ env.action_state2 }}'
+        echo 'action_state3 ${{ env.action_state3 }}'
+        echo 'action_state4 ${{ env.action_state4 }}'
+        echo 'MY_FILE_VAR1 ${{ env.MY_FILE_VAR1 }}'
+        echo 'MY_FILE_VAR2 ${{ env.MY_FILE_VAR2 }}'
+        echo 'MY_FILE_VAR3 ${{ env.MY_FILE_VAR3 }}'
+        echo 'E ${{ env.E }}'
+        ./dump.sh
+
