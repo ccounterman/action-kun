@@ -7,12 +7,13 @@ env:
   MY_ENV_VAR2: 'two single'
   MY_ENV_VAR3: 'three double'
   MY_ENV_VAR4: four none
-  mine: ${{ contains(github.ref_name, 'alpha')  && '[\"dev\", \"qa\"]' || (contains(github.ref_name, 'beta')  &&  '[\"dev\", \"qa\", \"uat\"]' || '[\"dev\", \"qa\", \"uat\", \"prod\", \"demo\"]' ) }}
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request
   push:
     # branches: ["branch-1-0-x", "branch-1-1-x" ]
+    branches: ["branch-1-0-x", "branch-1-1-x" ]
     # Sequence of patterns matched against refs/tags
     tags:
       - 1.*.*
@@ -58,6 +59,14 @@ jobs:
           # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
           echo "action_state3=blue" >> "$GITHUB_ENV"
           echo "action_state4=orange" >> "$GITHUB_ENV"   
+          echo "BUILDDEV=true" >> "$GITHUB_ENV"
+          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "BUILDPROD=true" >> $GITHUB_OUTPUT
+          fi
+          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$ ]]; then
+            echo "BUILDQA=true" >> $GITHUB_OUTPUT
+          fi
+        
  
 
   build:
@@ -97,6 +106,9 @@ jobs:
           echo 'ref_protected ${{ github.ref_protected }}'
           echo 'ref_type ${{ github.ref_type }}'
           echo 'env ${{ matrix.env }}'
+          echo 'build dev? ${{ env.BUILDDEV }}'
+          echo 'qa dev? ${{ env.BUILDQA }}'
+          echo 'prod dev? ${{ env.BUILDPROD }}'
       - name: set more vars
         run: |
           echo "action_state=yellow" >> "$GITHUB_ENV"
@@ -135,30 +147,5 @@ jobs:
           echo 'MY_FILE_VAR3 ${{ env.MY_FILE_VAR3 }}'
           echo 'MY_FILE_VAR4 ${{ env.MY_FILE_VAR4 }}'
           echo 'E ${{ env.E }}'
-          ./dump.sh
-
-  second-build:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Run another multi-line script
-      run: |
-        echo Now we have
-        echo 'Hi ${{ env.mascot }}' 
-        echo 'rev ${{ env.SOURCE_REV }}'
-        echo 'MY_ENV_VAR ${{ env.MY_ENV_VAR }}' 
-        echo 'MY_ENV_VAR2 ${{ env.MY_ENV_VAR2 }}' 
-        echo 'MY_ENV_VAR3 ${{ env.MY_ENV_VAR3 }}' 
-        echo 'MY_ENV_VAR4 ${{ env.MY_ENV_VAR4 }}' 
-        echo 'env ${{ matrix.env }}'
-        echo 'action_state ${{ env.action_state }}'
-        echo 'action_state2 ${{ env.action_state2 }}'
-        echo 'action_state3 ${{ env.action_state3 }}'
-        echo 'action_state4 ${{ env.action_state4 }}'
-        echo 'MY_FILE_VAR1 ${{ env.MY_FILE_VAR1 }}'
-        echo 'MY_FILE_VAR2 ${{ env.MY_FILE_VAR2 }}'
-        echo 'MY_FILE_VAR3 ${{ env.MY_FILE_VAR3 }}'
-        echo 'MY_FILE_VAR4 ${{ env.MY_FILE_VAR4 }}'
-        echo 'E ${{ env.E }}'
-        ./dump.sh
+          # ./dump.sh
 
