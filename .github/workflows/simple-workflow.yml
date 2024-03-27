@@ -60,13 +60,6 @@ jobs:
           # echo "matrix={\"env\": ['aa','bb','cc']}" >> $GITHUB_OUTPUT
           echo "action_state3=blue" >> "$GITHUB_ENV"
           echo "action_state4=orange" >> "$GITHUB_ENV"   
-          echo "BUILDDEV=true" >> "$GITHUB_ENV"
-          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "BUILDPROD=true" >> "$GITHUB_ENV"
-          fi
-          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$ ]]; then
-            echo "BUILDQA=true" >> "$GITHUB_ENV"
-          fi
         
  
 
@@ -89,6 +82,15 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!!
+      - name: set vars for later
+        run: |
+          echo "BUILDDEV=true" >> "$GITHUB_ENV"
+          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "BUILDPROD=true" >> "$GITHUB_ENV"
+          fi
+          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$ ]]; then
+            echo "BUILDQA=true" >> "$GITHUB_ENV"
+          fi
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
