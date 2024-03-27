@@ -180,21 +180,31 @@ jobs:
           echo "BUILDDEMO ${{ env.BUILDDEMO }}"
           if ($BUILDDEV) {
             echo "building dev"
+          } else {
+            echo "not building dev"
           }
 
           if($BUILDQA) {
             echo "building qa"
+          } else {
+            echo "not building dev"
           }
 
           if($BUILDUAT) {
             echo "building uat"
+          } else {
+            echo "not building dev"
           }
 
           if($BUILDPROD) {
             echo "building prod"
+          } else {
+            echo "not building dev"
           }
 
           if($BUILDDEMO) {
             echo "building demo"
+          } else {
+            echo "not building dev"
           }
 
