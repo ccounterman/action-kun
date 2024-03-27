@@ -85,11 +85,13 @@ jobs:
       - name: set vars for later
         run: |
           echo "BUILDDEV=true" >> "$GITHUB_ENV"
-          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ $GITHUB_REF_NAME =~ [0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo not alpha or beta
             echo "BUILDPROD=true" >> "$GITHUB_ENV"
           fi
-          if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$ ]]; then
-            echo "BUILDQA=true" >> "$GITHUB_ENV"
+          if [[ $GITHUB_REF_NAME =~ [0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$ ]]; then
+          echo beta
+          echo "BUILDQA=true" >> "$GITHUB_ENV"
           fi
 
       # Runs a set of commands using the runners shell
