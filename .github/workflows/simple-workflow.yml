@@ -7,6 +7,7 @@ env:
   MY_ENV_VAR2: 'two single'
   MY_ENV_VAR3: 'three double'
   MY_ENV_VAR4: four none
+  mine: ${{ contains(github.ref_name, 'alpha')  && '[\"dev\", \"qa\"]' || (contains(github.ref_name, 'beta')  &&  '[\"dev\", \"qa\", \"uat\"]' || '[\"dev\", \"qa\", \"uat\", \"prod\", \"demo\"]' ) }}
 
 # Controls when the workflow will run
 on:
