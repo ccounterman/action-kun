@@ -178,12 +178,7 @@ jobs:
           echo "BUILDUAT ${{ env.BUILDUAT }}"
           echo "BUILDPROD ${{ env.BUILDPROD }}"
           echo "BUILDDEMO ${{ env.BUILDDEMO }}"
-#          if [ $BUILDDEV ]; then echo "building dev"; fi
-#          if [ $BUILDQA ]; then echo "building qa"; fi
-#          if [ $BUILDUAT ]; then echo "building uat"; fi
-#          if [ $BUILDPROD ]; then echo "building prod"; fi
-#          if [ $BUILDDEMO ]; then echo "building demo"; fi
-          if($BUILDDEV) {
+          if ($BUILDDEV) {
             echo "building dev"
           }
 
