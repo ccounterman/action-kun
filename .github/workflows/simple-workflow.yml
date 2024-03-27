@@ -61,10 +61,10 @@ jobs:
           echo "action_state4=orange" >> "$GITHUB_ENV"   
           echo "BUILDDEV=true" >> "$GITHUB_ENV"
           if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "BUILDPROD=true" >> $GITHUB_OUTPUT
+            echo "BUILDPROD=true" >> "$GITHUB_ENV"
           fi
           if [[ GITHUB_REF_NAME =~ ^/[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$ ]]; then
-            echo "BUILDQA=true" >> $GITHUB_OUTPUT
+            echo "BUILDQA=true" >> "$GITHUB_ENV"
           fi
         
  
