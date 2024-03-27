@@ -178,40 +178,33 @@ jobs:
           echo "BUILDUAT ${{ env.BUILDUAT }}"
           echo "BUILDPROD ${{ env.BUILDPROD }}"
           echo "BUILDDEMO ${{ env.BUILDDEMO }}"
-          echo $BUILDDEV
-          echo $ENV:BUILDDEV
           if ($ENV:BUILDDEV) {
             echo "building dev ENV:BUILDDEV"
           } else {
             echo "not building dev ENV:BUILDDEV"
           }
 
-          if($BUILDQA) {
+          if($ENV:BUILDQA) {
             echo "building qa"
           } else {
             echo "not building qa"
           }
 
-          if($BUILDUAT) {
+          if($ENV:BUILDUAT) {
             echo "building uat"
           } else {
             echo "not building uat"
           }
 
-          if($BUILDPROD) {
+          if($ENV:BUILDPROD) {
             echo "building prod"
           } else {
             echo "not building prod"
           }
 
-          if($BUILDDEMO) {
+          if($ENV:BUILDDEMO) {
             echo "building demo"
           } else {
             echo "not building demo"
-          }
-          if (${{ env.BUILDDEV }}) {
-            echo "building dev $ env.BUILDDEV"
-          } else {
-            echo "not building $ env:BUILDDEV"
           }
 
